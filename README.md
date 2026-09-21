@@ -10,6 +10,7 @@ REST API quan ly cong viec, duoc xay dung cho bai tap ca nhan DevOps Node.js.
 - Jest + Supertest + ESLint
 - GitHub Actions CI/CD
 - Render Blueprint (tuy chon deploy)
+- Prometheus metrics tai `/metrics`
 
 ## Chay local
 
@@ -26,6 +27,7 @@ API mac dinh tai `http://localhost:3000`.
 ## API endpoints
 
 - `GET /health`: health check
+- `GET /metrics`: metrics cho Prometheus
 - `GET /api/todos`: lay danh sach
 - `GET /api/todos/:id`: lay mot todo
 - `POST /api/todos`: tao todo, body `{ "title": "Learn CI/CD" }`
@@ -42,6 +44,9 @@ docker compose up --build
 
 - `ci.yml` chay khi push hoac pull request: cai dependency, lint va test coverage.
 - `cd.yml` chi chay khi push vao `main`: build image va push len GitHub Container Registry.
+- `ci.yml` chay `npm audit` va Trivy filesystem scan de phat hien dependency/image risk.
+- `rollback.yml` cho phep rollback Render thu cong voi `RENDER_API_KEY`, `RENDER_SERVICE_ID` va deploy ID.
+- `render.yaml` co production (`main`) va staging (`develop`) tach biet.
 - Tao GitHub secret `RENDER_DEPLOY_HOOK` neu dung Render Deploy Hook.
 - GitHub Container Registry su dung tu dong `GITHUB_TOKEN`.
 

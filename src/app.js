@@ -1,6 +1,22 @@
 const express = require("express");
 const morgan = require("morgan");
+const promClient = require("prom-client");
 const { createDatabase } = require("./database");
+
+const metricsRegistry = new promClient.Registry();
+promClient.collectDefaultMetrics({ register: metricsRegistry });
+const requestCounter = new promClient.Counter({
+  name: "todo_api_http_requests_total",
+  help: "Total number of HTTP requests",
+  labelNames: ["method", "route", "status_code"],
+  registers: [metricsRegistry],
+});
+const requestDuration = new promClient.Histogram({
+  name: "todo_api_http_request_duration_seconds",
+  help: "HTTP request duration in seconds",
+  labelNames: ["method", "route"],
+  registers: [metricsRegistry],
+});
 
 async function createApp(
   databaseFile = process.env.DB_FILE || "./data/todos.db",
@@ -10,9 +26,30 @@ async function createApp(
 
   app.use(express.json());
   app.use(morgan("combined"));
+  app.use((request, response, next) => {
+    const start = process.hrtime.bigint();
+    response.on("finish", () => {
+      const route = request.route?.path || request.path;
+      requestCounter.inc({
+        method: request.method,
+        route,
+        status_code: response.statusCode,
+      });
+      requestDuration.observe(
+        { method: request.method, route },
+        Number(process.hrtime.bigint() - start) / 1e9,
+      );
+    });
+    next();
+  });
 
   app.get("/health", (_request, response) => {
     response.json({ status: "ok", service: "todo-api" });
+  });
+
+  app.get("/metrics", async (_request, response) => {
+    response.set("Content-Type", metricsRegistry.contentType);
+    response.end(await metricsRegistry.metrics());
   });
 
   app.get("/api/todos", (_request, response) => {

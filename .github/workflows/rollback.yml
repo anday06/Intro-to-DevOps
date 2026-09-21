@@ -1,0 +1,26 @@
+name: Rollback Render
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_id:
+        description: Render deploy ID to restore
+        required: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Roll back Render service
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          DEPLOY_ID: ${{ inputs.deploy_id }}
+        run: |
+          test -n "$RENDER_API_KEY"
+          test -n "$RENDER_SERVICE_ID"
+          curl --fail --request POST \
+            --header "Authorization: Bearer $RENDER_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data "{\"deployId\":\"$DEPLOY_ID\"}" \
+            "https://api.render.com/v1/services/$RENDER_SERVICE_ID/rollback"

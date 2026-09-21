@@ -11,3 +11,16 @@ services:
         value: 3000
       - key: DB_FILE
         value: /tmp/todos.db
+  - type: web
+    name: devops-todo-api-staging
+    env: docker
+    plan: free
+    branch: develop
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: staging
+      - key: PORT
+        value: 3000
+      - key: DB_FILE
+        value: /tmp/todos-staging.db

@@ -29,6 +29,12 @@ test("reports a healthy service", async () => {
   expect(response.body.status).toBe("ok");
 });
 
+test("exposes Prometheus metrics", async () => {
+  const response = await request(app).get("/metrics");
+  expect(response.statusCode).toBe(200);
+  expect(response.text).toContain("todo_api_http_requests_total");
+});
+
 test("supports the complete todo CRUD flow", async () => {
   const created = await request(app)
     .post("/api/todos")
