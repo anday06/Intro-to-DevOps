@@ -40,7 +40,7 @@ API mac dinh tai `http://localhost:3000`.
 docker compose up --build
 ```
 
-Grafana mo tai `http://localhost:3001` (tai khoan demo: `admin` / `admin`), Prometheus mo tai `http://localhost:9090`.
+Grafana mo tai `http://localhost:3001`; dat `GRAFANA_ADMIN_USER` va `GRAFANA_ADMIN_PASSWORD` trong file `.env` local. Prometheus mo tai `http://localhost:9090`.
 
 ## CI/CD
 
