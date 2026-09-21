@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: devops-todo-api
+    env: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_FILE
+        value: /tmp/todos.db
