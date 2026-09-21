@@ -40,6 +40,8 @@ API mac dinh tai `http://localhost:3000`.
 docker compose up --build
 ```
 
+Grafana mo tai `http://localhost:3001` (tai khoan demo: `admin` / `admin`), Prometheus mo tai `http://localhost:9090`.
+
 ## CI/CD
 
 - `ci.yml` chay khi push hoac pull request: cai dependency, lint va test coverage.
