@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Roll back Render service
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          RENDER_API_KEY: ${{ secrets['RENDER_API_KEY'] }}
+          RENDER_SERVICE_ID: ${{ secrets['RENDER_SERVICE_ID'] }}
           DEPLOY_ID: ${{ inputs.deploy_id }}
         run: |
           test -n "$RENDER_API_KEY"

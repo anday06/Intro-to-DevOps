@@ -33,6 +33,6 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/devops-todo-api:latest
       - name: Trigger Render deploy
         env:
-          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          RENDER_DEPLOY_HOOK: ${{ secrets['RENDER_DEPLOY_HOOK'] }}
         if: ${{ env.RENDER_DEPLOY_HOOK != '' }}
         run: curl --fail --request POST "$RENDER_DEPLOY_HOOK"
