@@ -6,7 +6,7 @@
 **Mã số học viên:** ....................................................  
 **Lớp:** ...............................................................  
 **Giảng viên:** ........................................................  
-**Thời gian thực hiện:** ...............................................  
+**Thời gian thực hiện:** ...............................................
 
 ---
 
@@ -106,15 +106,15 @@ flowchart LR
 
 ### 3.2. Các endpoint
 
-| Method | Endpoint | Mô tả |
-|---|---|---|
-| GET | `/health` | Kiểm tra trạng thái ứng dụng |
-| GET | `/api/todos` | Lấy toàn bộ Todo |
-| GET | `/api/todos/:id` | Lấy một Todo theo ID |
-| POST | `/api/todos` | Tạo Todo mới |
-| PUT | `/api/todos/:id` | Cập nhật Todo |
-| DELETE | `/api/todos/:id` | Xóa Todo |
-| GET | `/metrics` | Xuất metrics cho Prometheus |
+| Method | Endpoint         | Mô tả                        |
+| ------ | ---------------- | ---------------------------- |
+| GET    | `/health`        | Kiểm tra trạng thái ứng dụng |
+| GET    | `/api/todos`     | Lấy toàn bộ Todo             |
+| GET    | `/api/todos/:id` | Lấy một Todo theo ID         |
+| POST   | `/api/todos`     | Tạo Todo mới                 |
+| PUT    | `/api/todos/:id` | Cập nhật Todo                |
+| DELETE | `/api/todos/:id` | Xóa Todo                     |
+| GET    | `/metrics`       | Xuất metrics cho Prometheus  |
 
 Ví dụ tạo Todo:
 
